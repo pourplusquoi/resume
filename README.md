@@ -1,4 +1,4 @@
-# resume
+# Resume
 
 I will be working at Facebook this summer as Performance and Capacity Engineer Intern in Infrastructure Foundation Team.
 
