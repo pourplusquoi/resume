@@ -1,5 +1,3 @@
 # Resume
 
-I will be working at Facebook this summer as Performance and Capacity Engineer Intern in Infrastructure Foundation Team.
-
-Looking for full-time 2019 software development engineer position. Feel free to contact me!
+Computer science graduate student at Rice University, former performance and capacity engineer intern at Facebook, in search of full-time software engineer position starting in 2019. Feel free to contact me!
