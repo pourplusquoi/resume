@@ -5,12 +5,12 @@
   Mar | | 
       |_| 
  2019 |_  
-      | | 
-  Nov | | Master's Student @ Rice University
+      | | Master's Student @ Rice University
+  Nov | | 
       | | 
   Sep | |_  
-      | | | 
-  Jul | | | Summer Intern @ Facebook
+      | | | Summer Intern @ Facebook
+  Jul | | | 
       | | | 
   May | |_| 
       | | 
@@ -23,8 +23,8 @@
   Sep | | 
       |_| 
   Jul |_  
-      | | 
-  May | | Undergraduate Student @ Shanghai Jiao Tong University
+      | | Undergraduate Student @ Shanghai Jiao Tong University
+  May | | 
       | | 
   Mar | | 
       | | 
