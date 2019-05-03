@@ -1,3 +1,7 @@
 # Resume
 
-Software Engineer at Google, graduated from Rice University, former Performance and Capacity Engineer Intern at Facebook.
+Software Engineer at Google since 2019
+
+Graduated from Rice University in 2018
+
+Interned at Facebook in 2018
