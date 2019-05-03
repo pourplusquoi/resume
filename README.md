@@ -3,7 +3,7 @@
   May | | Software Engineer @ Google
       | | 
   Mar | | 
-      |_| 
+      |/  
  2019 |_  
       | | Master's Student @ Rice University
   Nov | | 
@@ -12,7 +12,7 @@
       | | | Summer Intern @ Facebook
   Jul | | | 
       | | | 
-  May | |_| 
+  May | |/  
       | | 
   Mar | | 
       | | 
@@ -21,7 +21,7 @@
   Nov | | 
       | | 
   Sep | | 
-      |_| 
+      |/  
   Jul |_  
       | | Undergraduate Student @ Shanghai Jiao Tong University
   May | | 
@@ -32,7 +32,7 @@
       ≈ ≈ 
   Nov | | 
       | | 
-  Sep |_| 
+  Sep |/  
       | 
   Jul | 
       | 
