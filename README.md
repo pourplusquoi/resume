@@ -1,7 +1,44 @@
 # Resume
-
-Software Engineer at Google since 2019
-
-Graduated from Rice University in 2018
-
-Interned at Facebook in 2018
+``
+  May | | Software Engineer @ Google
+      | | 
+  Mar | | 
+      |/  
+ 2019 | 
+      |\  
+  Nov | | Master's Student @ Rice University
+      | | 
+  Sep | | 
+      | |\  
+  Jul | | | Summer Intern @ Facebook
+      | | | 
+  May | |/  
+      | | 
+  Mar | | 
+      | | 
+ 2018 | | 
+      | | 
+  Nov | | 
+      | | 
+  Sep | | 
+      |/  
+  Jul | 
+      |\
+  May | | Undergraduate Student @ Shanghai Jiao Tong University
+      | |
+  Mar | |
+      | |
+ 2017 | |
+      = =
+  Nov | |  
+      | | 
+  Sep |/  
+      | 
+  Jul | 
+      | 
+  May | 
+      | 
+  Mar | 
+      | 
+ 2013 | 
+``
