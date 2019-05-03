@@ -1,5 +1,5 @@
 # Resume
-``
+```
   May | | Software Engineer @ Google
       | | 
   Mar | | 
@@ -41,4 +41,4 @@
   Mar | 
       | 
  2013 | 
-``
+```
