@@ -1,44 +1,44 @@
 # Resume
 ```
-      May | | Software Engineer @ Google
-          | | 
+      May | * Software Engineer @ Google
+      Apr | | 
       Mar | | 
-          |/  
- 2019 Jan |_  
-          | | Master's Student @ Rice University
+      Feb |+|  
+ 2019 Jan |  
+      Dec |-* Master's Student @ Rice University
       Nov | | 
-          | | 
-      Sep | |_  
-          | | | Summer Intern @ Facebook
-      Jul | | | 
-          | | | 
-      May | |/  
-          | | 
-      Mar | | 
-          | | 
- 2018 Jan | | 
-          | | 
-      Nov | | 
-          | | 
+      Oct | | 
       Sep | | 
-          |/  
-      Jul |_  
-          | | Undergraduate Student @ Shanghai Jiao Tong University
-      May | | 
-          | | 
+      Aug | |-* Summer Intern @ Facebook
+      Jul | | | 
+      Jun | | | 
+      May | |+|  
+      Apr | | 
       Mar | | 
-          | |
+      Feb | | 
+ 2018 Jan | | 
+      Dec | | 
+      Nov | | 
+      Oct | | 
+      Sep | | 
+      Aug |+| 
+      Jul |  
+      Jun |-* Undergraduate Student @ Shanghai Jiao Tong University
+      May | | 
+      Apr | | 
+      Mar | | 
+      Feb | |
  2017 Jan | | 
           ≈ ≈ 
       Nov | | 
-          | | 
-      Sep |/  
-          | 
+      Oct | | 
+      Sep |+| 
+      Aug | 
       Jul | 
-          | 
+      Jun | 
       May | 
-          | 
+      Apr | 
       Mar | 
-          | 
+      Feb | 
  2013 Jan | 
 ```
