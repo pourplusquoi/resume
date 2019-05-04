@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
         Experience(
             TimePoint(2018, 3),
             TimePoint(2018, 9),
-           "6 Play Zelda @Texas"));
+            "6  Play Zelda @Texas"));
 
     gen.append(
         Experience(

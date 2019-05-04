@@ -31,7 +31,7 @@ user$ ./timeline-gen
      Nov | |   |
      Oct | |   |
          | |   |-------*  2  Pay Tax @California
-     Sep | |-* |       |  6 Play Zelda @Texas
+     Sep | |-* |       |  6  Play Zelda @Texas
          | | | |-----* |  1  Pay Tax @California
      Aug | | |_|---* | |  0  Pay Tax @California
      Jul | | |---* | | |  3  Pay Tax @California
