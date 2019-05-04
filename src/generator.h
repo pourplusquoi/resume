@@ -14,6 +14,7 @@
 struct Generator {
     const TimePoint now_;
     std::vector<Experience> data_;
+    
     mutable std::unordered_map<int, std::string_view> desc_map_;
     
     static const int kLenSpacing;
@@ -26,14 +27,14 @@ struct Generator {
     struct Detail {
         Status status_;
         int index_;
-        int spacing_;
-        Detail(Status s, int idx, int space)
-            : status_(s), index_(idx), spacing_(space) {}
+        int indent_;
+        Detail(Status s, int idx, int indent)
+            : status_(s), index_(idx), indent_(indent) {}
     };
     using DetailCollection = std::vector<Detail>;
 
     void append(Experience exp) {
-        if (exp.begin_ < exp.end_)
+        if (exp.begin_ <= exp.end_)
             data_.emplace_back(std::move(exp));
     }
 
@@ -46,8 +47,10 @@ struct Generator {
                     return ldur > rdur;
                 return lhs.begin_ < rhs.begin_;
             });
+
         TimePoint epoch = earliest();
         auto timeline = create_timeline(epoch);
+
         return build_from(epoch, timeline);
     }
 
@@ -62,20 +65,10 @@ struct Generator {
             line_vec.emplace_back(
                 build_line_from(line_num++, point, elem, overflow));
 
-            // Deals with overflow.
-            for (int i = 0; i < overflow.size(); i++) {
-                std::string line = "         |";
-                
-                char filler = (point == now_) ? ' ' : kBranchPair.second;
-                line += std::string(overflow.at(i)->spacing_ - 1, filler) + kPunctuation;
-                
-                for (int j = i + 1; j < overflow.size(); j++) {
-                    int temp = overflow.at(j)->spacing_ - overflow.at(i)->spacing_;
-                    line += std::string(temp - 1, ' ') + "|";
-                }
-                
-                line_vec.emplace_back(line);
-                desc_map_.insert({ line_num++, data_.at(overflow.at(i)->index_).desc_ });
+            // Builds and adds overflow lines, if any.
+            if (!overflow.empty()) {
+                attach_overflow_lines(
+                    point == now_, line_num, overflow, elem, line_vec);
             }
 
             ++point;
@@ -99,11 +92,62 @@ struct Generator {
             indent = std::max(
                 indent, static_cast<int>(line_vec.at(elem.first).size()));
         }
-        indent += 2; // Additional space before description.
+        indent += kLenSpacing; // Additional space before description.
         for (const auto& elem : desc_map_) {
             std::string& line = line_vec.at(elem.first);
             line += std::string(indent - line.size(), ' ');
             line += elem.second;
+        }
+    }
+
+    void attach_overflow_lines(bool at_head, int& line_num,
+                               const std::vector<const Detail*>& overflow,
+                               const DetailCollection& affected,
+                               std::vector<std::string>& line_vec) const {
+        // Prepares for overflow.
+        std::string prefix = "         |";
+        const auto& tail = line_vec.back();
+
+        int next_pos = 0;
+        if (!at_head) {
+            int start = overflow.front()->indent_ + prefix.size() - 2;
+            next_pos = static_cast<int>(
+                tail.rfind('|', start) - prefix.size() + 1);
+
+            std::string keep = tail.substr(prefix.size(), next_pos);
+            std::replace_if(keep.begin(), keep.end(),
+                [](char c) {return c != ' ' && c != '|'; }, ' ');
+            prefix += keep;
+        }
+
+        // Deals with overflow.
+        for (int i = 0; i < overflow.size(); i++) {
+            std::string line = prefix;
+
+            int indent_num = overflow.at(i)->indent_ - next_pos - 1;
+            char filler = at_head ? ' ' : kBranchPair.second;
+            line += std::string(indent_num, filler) + kPunctuation;
+
+            // Finds the first affected point.
+            int idx = 0;
+            for (const Detail& detail : affected) {
+                idx++;
+                if (overflow.at(i) == &detail)
+                    break;
+            }
+
+            // Stitches the event line of affected experience.
+            for (int j = idx; j < affected.size(); j++) {
+                int margin = affected.at(j).indent_ -
+                             affected.at(j - 1).indent_ - 1;
+                line += std::string(margin, ' ') + "|";
+            }
+
+            line_vec.emplace_back(line);
+            desc_map_.insert({
+                line_num++,
+                data_.at(overflow.at(i)->index_).desc_
+            });
         }
     }
 
@@ -113,30 +157,33 @@ struct Generator {
                                 std::vector<const Detail*>& overflow) const {
         std::string line = point.to_string_as_head();
         
-        int next_pos = 1;
+        int next_pos = 0;
         bool tail_taken = false;
         
         for (const Detail& detail : collection) {
-            int padding_num = detail.spacing_ - next_pos;
-            next_pos += padding_num + 1;
+            int indent_num = detail.indent_ - next_pos - 1;
+            next_pos = detail.indent_;
 
             switch (detail.status_) {
                 case Status::head:
-                    line += std::string(padding_num, kBranchPair.first) + "|";
+                    line += std::string(indent_num, kBranchPair.first) + "|";
                     break;
                 
                 case Status::mid:
-                    line += std::string(padding_num, ' ') + "|";
+                    line += std::string(indent_num, ' ') + "|";
                     break;
                 
                 case Status::tail:
                     if (!tail_taken) { // Doesn't overflow.
                         tail_taken = true;
                         char filler = (point == now_) ? ' ' : kBranchPair.second;
-                        line += std::string(padding_num, filler) + kPunctuation;
-                        desc_map_.insert({ line_num, data_.at(detail.index_).desc_ });
+                        line += std::string(indent_num, filler) + kPunctuation;
+                        desc_map_.insert({
+                            line_num,
+                            data_.at(detail.index_).desc_
+                        });
                     } else { // Overflows.
-                        line += std::string(padding_num, ' ') + "|";
+                        line += std::string(indent_num, ' ') + "|";
                         overflow.push_back(&detail);
                     }
                     break;
@@ -147,21 +194,31 @@ struct Generator {
 
     std::vector<DetailCollection> create_timeline(const TimePoint& epoch) const {
         std::vector<DetailCollection> timeline((now_ - epoch) + 1);
+        std::vector<int> indent_map(data_.size());
+
         for (int i = 0; i < data_.size(); i++) {
             int boffset = data_.at(i).begin_ - epoch;
             int eoffset = data_.at(i).end_ - epoch;
 
-            int spacing = 0;
-            for (int i = boffset; i <= eoffset; i++)
-                spacing = std::max(
-                    spacing, static_cast<int>(timeline[i].size())*kLenSpacing);
-            spacing += 2;
+            int indent = 0;
+            for (int j = boffset; j <= eoffset; j++) {
+                if (!timeline[j].empty()) {
+                    indent = std::max(
+                        indent, indent_map.at(timeline[j].back().index_));
+                }
+            }
+            indent += kLenSpacing;
 
-            timeline[boffset].emplace_back(Status::head, i, spacing);
-            timeline[eoffset].emplace_back(Status::tail, i, spacing);
+            // Records the indent to the indent map.
+            indent_map.at(i) = indent;
 
-            for (int i = boffset + 1; i < eoffset; i++)
-                timeline[i].emplace_back(Status::mid, i, spacing);
+            // When experience begin equals end.
+            if (eoffset > boffset)
+                timeline[boffset].emplace_back(Status::head, i, indent);
+            timeline[eoffset].emplace_back(Status::tail, i, indent);
+
+            for (int j = boffset + 1; j < eoffset; j++)
+                timeline[j].emplace_back(Status::mid, i, indent);
         }
         return timeline;
     }

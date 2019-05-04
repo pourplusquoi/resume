@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <utility>
 
 #include "experience.h"
 #include "generator.h"
@@ -17,19 +18,61 @@ int main(int argc, char** argv) {
         Experience(
             TimePoint(2018, 5),
             TimePoint(2018, 8),
-            "Pay Tax @California"));
+            "0  Pay Tax @California"));
+
+    gen.append(
+        Experience(
+            TimePoint(2018, 5),
+            TimePoint(2018, 8),
+            "1  Pay Tax @California"));
+
+    gen.append(
+        Experience(
+            TimePoint(2018, 6),
+            TimePoint(2018, 9),
+            "2  Pay Tax @California"));
+
+    gen.append(
+        Experience(
+            TimePoint(2018, 4),
+            TimePoint(2018, 7),
+            "3  Pay Tax @California"));
 
     gen.append(
         Experience(
             TimePoint(2019, 2),
             TimePoint(2019, 5),
-            "Wander @Nowhere"));
+            "4  Sleep @Home"));
 
     gen.append(
         Experience(
-            TimePoint(2017, 8),
+            TimePoint(2019, 2),
+            TimePoint(2019, 5),
+            "5  Sleep @Home"));
+
+    gen.append(
+        Experience(
+            TimePoint(2018, 3),
+            TimePoint(2018, 9),
+           "6 Play Zelda @Texas"));
+
+    gen.append(
+        Experience(
+            TimePoint(2018, 8),
+            TimePoint(2019, 1),
+            "7 Play Zelda @Texas"));
+
+    gen.append(
+        Experience(
+            TimePoint(2016, 8),
             TimePoint(2018, 12),
-            "Play Zelda @Texas"));
+            "8 Play Zelda @Texas"));
+
+    gen.append(
+        Experience(
+            TimePoint(2018, 1),
+            TimePoint(2018, 5),
+            "9 Test @Production"));
     
     auto out = gen.generate();
     std::cout << out << std::endl;

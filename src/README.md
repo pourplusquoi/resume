@@ -20,24 +20,39 @@ user$ ./timeline-gen
 
 ## Sample Timeline
 
-```rust
-     May | *    Wander @Nowhere
-     Apr | |
-     Mar | |
-     Feb |_|
-2019 Jan |
-     Dec |-*    Play Zelda @Texas
+```
+         |   *            5  Sleep @Home
+     May | * |            4  Sleep @Home
+     Apr | | |
+     Mar | | |
+     Feb |_|_|
+2019 Jan |-----*          7 Play Zelda @Texas
+     Dec |-*   |          8 Play Zelda @Texas
+     Nov | |   |
+     Oct | |   |
+         | |   |-------*  2  Pay Tax @California
+     Sep | |-* |       |  6 Play Zelda @Texas
+         | | | |-----* |  1  Pay Tax @California
+     Aug | | |_|---* | |  0  Pay Tax @California
+     Jul | | |---* | | |  3  Pay Tax @California
+     Jun | | |   | | |_|
+     May | | |-* |_|_|    9 Test @Production
+     Apr | | | |_|
+     Mar | |_| |
+     Feb | |   |
+2018 Jan | |___|
+     Dec | |
      Nov | |
      Oct | |
      Sep | |
-     Aug | |-*  Pay Tax @California
-     Jul | | |
-     Jun | | |
-     May | |_|
+     Aug | |
+     Jul | |
+     Jun | |
+     May | |
      Apr | |
      Mar | |
      Feb | |
-2018 Jan | |
+2017 Jan | |
      Dec | |
      Nov | |
      Oct | |
@@ -49,6 +64,6 @@ user$ ./timeline-gen
      Apr |
      Mar |
      Feb |
-2017 Jan |
+2016 Jan |
 ```
 

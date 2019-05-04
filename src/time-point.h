@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 
-#include "eq.h"
+#include "compare.h"
 
-struct TimePoint : Eq<TimePoint> {
+struct TimePoint : Compare<TimePoint> {
     int year_;
     int month_;
     const static std::vector<std::string> kMonthName;
@@ -18,11 +18,9 @@ struct TimePoint : Eq<TimePoint> {
     }
 
     bool operator<(const TimePoint& that) const {
-        if (this->year_ < that.year_)
-            return true;
-        if (this->month_ < that.month_)
-            return true;
-        return false;
+        if (this->year_ != that.year_)
+            return this->year_ < that.year_;
+        return this->month_ < that.month_;
     }
 
     int operator-(const TimePoint& that) const {
