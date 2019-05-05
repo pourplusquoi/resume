@@ -9,52 +9,37 @@ In case you want to use it.
 ```
 user$ cd ${parent-dir}/src
 user$ make
-user$ ./timeline-gen
+user$ ./timeline-gen sample.experience [output.timeline]
 ```
 
 ## TODO
 
 - Cuts off timeline that is too long.
 
-- Supports reading experience from file, writting timeline to file (or stdout).
-
 ## Sample Timeline
 
 ```
-         |   *            5  Sleep @Home
-     May | * |            4  Sleep @Home
+         |   *          Sleep @Home
+     May | * |          Sleep @Home
      Apr | | |
-     Mar | | |
-     Feb |_|_|
-2019 Jan |-----*          7 Play Zelda @Texas
-     Dec |-*   |          8 Play Zelda @Texas
-     Nov | |   |
-     Oct | |   |
-         | |   |-------*  2  Pay Tax @California
-     Sep | |-* |       |  6  Play Zelda @Texas
-         | | | |-----* |  1  Pay Tax @California
-     Aug | | |_|---* | |  0  Pay Tax @California
-     Jul | | |---* | | |  3  Pay Tax @California
-     Jun | | |   | | |_|
-     May | | |-* |_|_|    9 Test @Production
-     Apr | | | |_|
-     Mar | |_| |
-     Feb | |   |
-2018 Jan | |___|
-     Dec | |
-     Nov | |
-     Oct | |
-     Sep | |
-     Aug | |
-     Jul | |
-     Jun | |
-     May | |
-     Apr | |
-     Mar | |
-     Feb | |
-2017 Jan | |
-     Dec | |
-     Nov | |
+     Mar | |_|
+     Feb |_|
+2019 Jan |-----------*  Replace Driving Lisence @DMV
+         |---*       |  Watch European Champions League @Fondren
+     Dec |-* |       |  Play Breath of The Wild @RMC
+     Nov | | |       |
+     Oct | | |-----*_|  Swim swim swim @IMT
+     Sep | | |     |
+     Aug | | |---* |    Pay Thousands of Tax @IRS
+     Jul | | |   |_|
+     Jun | | |   |
+     May | | |-*_|      Eat Panda Express @RVA
+     Apr | | | |
+     Mar | | | |
+     Feb | |_| |
+2018 Jan | |   |
+     Dec | |   |
+     Nov | |___|
      Oct | |
      Sep | |
      Aug |_|
@@ -64,6 +49,6 @@ user$ ./timeline-gen
      Apr |
      Mar |
      Feb |
-2016 Jan |
+2017 Jan |
 ```
 

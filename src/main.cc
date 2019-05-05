@@ -1,9 +1,10 @@
-#include <fstream>
+#include <ctime>
 #include <iostream>
 #include <string>
 #include <utility>
 
 #include "experience.h"
+#include "file-io.h"
 #include "generator.h"
 #include "time-point.h"
 
@@ -12,69 +13,49 @@ const char Generator::kPunctuation = '*';
 const std::pair<char, char> Generator::kBranchPair = { '_', '-' };
 
 int main(int argc, char** argv) {
-    Generator gen(TimePoint(2019, 5));
+    if (argc != 2 && argc != 3) {
+        std::cout << "[ERROR] Damn, invalid args...\n"
+                  << "Usage: ./timeline-gen [input-file] [output-file]\n"
+                  << "       [required]  input-file     Where I parse from.\n"
+                  << "       [optional]  output-file    Where I write timeline,"
+                  << " otherwise I write to stdout." << std::endl;
+        return -1;
+    }
 
-    gen.append(
-        Experience(
-            TimePoint(2018, 5),
-            TimePoint(2018, 8),
-            "0  Pay Tax @California"));
+    const char* infile = argv[1];
+    const char* outfile = (argc == 2) ? nullptr : argv[2];
 
-    gen.append(
-        Experience(
-            TimePoint(2018, 5),
-            TimePoint(2018, 8),
-            "1  Pay Tax @California"));
+    std::vector<Experience> experience;
+    if (!FileIO::read(infile, experience)) {
+        std::cout << "[ERROR] Damn, cannot read file: "
+                  << infile << std::endl;
+        return 1;
+    }
 
-    gen.append(
-        Experience(
-            TimePoint(2018, 6),
-            TimePoint(2018, 9),
-            "2  Pay Tax @California"));
-
-    gen.append(
-        Experience(
-            TimePoint(2018, 4),
-            TimePoint(2018, 7),
-            "3  Pay Tax @California"));
-
-    gen.append(
-        Experience(
-            TimePoint(2019, 2),
-            TimePoint(2019, 5),
-            "4  Sleep @Home"));
-
-    gen.append(
-        Experience(
-            TimePoint(2019, 2),
-            TimePoint(2019, 5),
-            "5  Sleep @Home"));
-
-    gen.append(
-        Experience(
-            TimePoint(2018, 3),
-            TimePoint(2018, 9),
-            "6  Play Zelda @Texas"));
-
-    gen.append(
-        Experience(
-            TimePoint(2018, 8),
-            TimePoint(2019, 1),
-            "7 Play Zelda @Texas"));
-
-    gen.append(
-        Experience(
-            TimePoint(2016, 8),
-            TimePoint(2018, 12),
-            "8 Play Zelda @Texas"));
-
-    gen.append(
-        Experience(
-            TimePoint(2018, 1),
-            TimePoint(2018, 5),
-            "9 Test @Production"));
+    // Gets current local time.
+    auto time = std::time(nullptr);
+    auto local_time = std::localtime(&time);
     
-    auto out = gen.generate();
-    std::cout << out << std::endl;
+    TimePoint now(local_time->tm_year + 1900, local_time->tm_mon + 1);
+    Generator timeline(std::move(now));
+
+    for (const Experience& exp : experience) {
+        timeline.append(exp);
+    }
+
+    std::string out = timeline.generate();
+    if (!outfile) {
+        std::cout << out << std::endl;
+    } else {
+        if (!FileIO::write(outfile, out)) {
+            std::cout << "[ERROR] Damn, cannot write file: "
+                      << outfile << std::endl;
+            return 2;
+        } else {
+            std::cout << "[INFO] FYI, timeline is written to file: "
+                      << outfile << std::endl;
+        }
+    }
+
     return 0;
 }
