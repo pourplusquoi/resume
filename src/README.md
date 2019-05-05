@@ -1,6 +1,6 @@
 # Timeline Generator
 
-Helps to generate "git-branch" like timeline from your experience. Sample code is in `main.cc`.
+Helps to generate "git-branch" like timeline from your experience. The format of input is illustrated in `sample.experience`.
 
 ## Usage
 
