@@ -54,4 +54,4 @@ constexpr bool operator>=(const Ge<T>& lhs, const Ge<T>& rhs) noexcept {
 template <typename T>
 struct Compare : Eq<T>, Ne<T>, Gt<T>, Le<T>, Ge<T> {};
 
-#endif // COMPARE_H_
+#endif  // COMPARE_H_

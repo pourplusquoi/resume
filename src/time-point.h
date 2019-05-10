@@ -52,4 +52,4 @@ struct TimePoint : Compare<TimePoint> {
     }
 };
 
-#endif // TIME_POINT_H_
+#endif  // TIME_POINT_H_

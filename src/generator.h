@@ -236,4 +236,4 @@ private:
     }
 };
 
-#endif // GENERATOR_H_
+#endif  // GENERATOR_H_

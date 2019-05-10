@@ -19,4 +19,4 @@ struct Experience {
     }
 };
 
-#endif // EXPERIENCE_H_
+#endif  // EXPERIENCE_H_
