@@ -20,7 +20,12 @@ public:
     explicit Generator(const TimePoint& now) noexcept : now_(now) {}
     explicit Generator(TimePoint&& now) noexcept : now_(std::move(now)) {}
 
-    void append(Experience exp) {
+    void append(const Experience& exp) {
+        if (exp.begin_ <= exp.end_)
+            data_.emplace_back(exp);
+    }
+
+    void append(Experience&& exp) {
         if (exp.begin_ <= exp.end_)
             data_.emplace_back(std::move(exp));
     }
@@ -38,7 +43,7 @@ public:
         TimePoint epoch = earliest();
         auto timeline = create_timeline(epoch);
 
-        return build_from(std::move(epoch), std::move(timeline));
+        return build_from(std::move(epoch), timeline);
     }
 
 private:
@@ -99,7 +104,7 @@ private:
     }
 
     std::string build_from(TimePoint&& point,
-                           std::vector<DetailCollection>&& timeline) const {
+                           const std::vector<DetailCollection>& timeline) const {
         std::vector<std::string> line_vec;
 
         int line_num = 0;
