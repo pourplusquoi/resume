@@ -1,4 +1,7 @@
 # OK, this is a comment.
+
+# Format:
+# [StartYear] [StartMonth] [EndYear] [EndMonth] [Description...]
 2019 03 2019 05 Sleep @Home
 2019 02 2019 05 Sleep @Home
 2018 10 2019 01 Replace Driving Lisence @DMV
@@ -6,7 +9,7 @@
 # You are allowed to write comment at any line.
 
 # But, comment line must starts with '#'...
-2018 07 2018 10 Swim swim swim @IMT
+2018 07 2018 10 Swim Swim Swim @IMT
 2018 05 2018 08 Pay Thousands of Tax @IRS
 
 2018 02 2018 12 Watch European Champions League @Fondren
