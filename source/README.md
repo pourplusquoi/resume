@@ -7,9 +7,9 @@ Helps to generate "git-branch" like timeline from your experience. The format of
 In case you want to use it.
 
 ```
-user$ cd ${parent-dir}/src
+user$ cd ${parent-dir}/source
 user$ make
-user$ ./timeline-gen sample.experience [output.timeline]
+user$ ./timeline-gen sample.experience [sample.timeline]
 ```
 
 ## Sample Timeline

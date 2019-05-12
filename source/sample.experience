@@ -1,4 +1,7 @@
 # OK, this is a comment.
+
+# Format:
+# [StartYear] [StartMonth] [EndYear] [EndMonth] [Description...]
 2019 03 2019 05 Sleep @Home
 2019 02 2019 05 Sleep @Home
 2018 10 2019 01 Replace Driving Lisence @DMV
