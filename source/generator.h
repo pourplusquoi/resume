@@ -14,7 +14,9 @@
 class Generator {
 public:
     static const int kLenSpacing;
+    static const int kFoldThreshold;
     static const char kPunctuation;
+    static const char* kPrefix;
     static const std::pair<char, char> kBranchPair;
 
     explicit Generator(const TimePoint& now) noexcept : now_(now) {}
@@ -125,8 +127,10 @@ private:
         // Adds desc at the end.
         append_desc_each_line(line_vec);
 
-        std::string res;
+        line_vec = fold(line_vec);
         std::reverse(line_vec.begin(), line_vec.end());
+
+        std::string res;
         for (std::string& line : line_vec) {
             res += std::move(line);
             res.push_back('\n');
@@ -180,7 +184,7 @@ private:
                                const DetailCollection& affected,
                                std::vector<std::string>& line_vec) const {
         // Prepares for overflow.
-        std::string prefix = "         |";
+        std::string prefix = std::string(kPrefix);
         const auto& tail = line_vec.back();
 
         int next_pos = 0;
@@ -191,7 +195,7 @@ private:
 
             std::string keep = tail.substr(prefix.size(), next_pos);
             std::replace_if(keep.begin(), keep.end(),
-                [](char c) {return c != ' ' && c != '|'; }, ' ');
+                [](char c) { return c != ' ' && c != '|'; }, ' ');
             prefix += keep;
         }
 
@@ -238,6 +242,48 @@ private:
             line += std::string(indent - line.size(), ' ');
             line += elem.second;
         }
+    }
+
+    std::vector<std::string> fold(const std::vector<std::string>& lines) const {
+        std::vector<int> keep(1, 0);
+        for (int i = 1, skip = strlen(kPrefix), count = 0; i < lines.size(); i++) {
+            if (i < lines.size() - 1 &&
+                std::string_view(lines[keep.back()]).substr(skip) ==
+                    std::string_view(lines[i]).substr(skip)) {
+                count++;
+            } else {
+                if (count < kFoldThreshold) {
+                    for (; count > 0; count--) {
+                        keep.push_back(keep.back() + 1);
+                    }
+                    keep.push_back(i);
+                } else {
+                    count = 0;
+                    for (int j = 0; j < kFoldThreshold / 3 - 1; j++) {
+                        keep.push_back(keep.back() + 1);
+                    }
+                    keep.push_back(-1);
+                    for (int j = kFoldThreshold / 3; j >= 0; j--) {
+                        keep.push_back(i - j);
+                    }
+                }
+            }
+        }
+
+        std::vector<std::string> folded;
+        for (int idx : keep) {
+            if (idx < 0) {
+                std::string connect = std::string(kPrefix);
+                connect += folded.back().substr(connect.size());
+
+                std::replace_if(connect.begin(), connect.end(),
+                    [](char c) { return c == '|'; }, '~');
+                folded.emplace_back(std::move(connect));
+            } else {
+                folded.emplace_back(lines[idx]);
+            }
+        }
+        return folded;
     }
 };
 
