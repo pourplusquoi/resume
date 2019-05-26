@@ -43,7 +43,11 @@ user$ ./timeline-gen sample.experience [sample.timeline]
      Aug | | |_|
      Jul | | |
      Jun | | |
-         ~ ~ ~
+     May | | |
+     Apr | | |
+     ... ~ ~ ~
+     Jun | | |
+     May | | |
      Apr | | |
      Mar | | |
      Feb | |_|
@@ -55,13 +59,19 @@ user$ ./timeline-gen sample.experience [sample.timeline]
      Aug |_| |
      Jul |   |
      Jun |   |
-         ~   ~
+     May |   |
+     Apr |   |
+     ... ~   ~
+     Dec |   |
+     Nov |   |
      Oct |   |
      Sep |   |
      Aug |___|
      Jul |
      Jun |
-         ~
+     May |
+     Apr |
+     Mar |
      Feb |
 2010 Jan |
 ```

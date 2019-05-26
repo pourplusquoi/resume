@@ -13,11 +13,12 @@
 
 class Generator {
 public:
-    static const int kLenSpacing;
-    static const int kFoldThreshold;
-    static const char kPunctuation;
-    static const char* kPrefix;
-    static const std::pair<char, char> kBranchPair;
+    static constexpr int kLenSpacing = 2;
+    static constexpr int kFoldThreshold = 12;
+    static constexpr char kPunctuation = '*';
+    static constexpr char kPrefix[] = "         |";
+    static constexpr char kFoldPrefix[] = "     ... |";
+    static constexpr std::pair<char, char> kBranchPair = { '_', '-' };
 
     explicit Generator(const TimePoint& now) noexcept : now_(now) {}
     explicit Generator(TimePoint&& now) noexcept : now_(std::move(now)) {}
@@ -273,7 +274,7 @@ private:
         std::vector<std::string> folded;
         for (int idx : keep) {
             if (idx < 0) {
-                std::string connect = std::string(kPrefix);
+                std::string connect = std::string(kFoldPrefix);
                 connect += folded.back().substr(connect.size());
 
                 std::replace_if(connect.begin(), connect.end(),

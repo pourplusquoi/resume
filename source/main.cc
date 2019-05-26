@@ -8,12 +8,6 @@
 #include "generator.h"
 #include "time-point.h"
 
-const int Generator::kLenSpacing = 2;
-const int Generator::kFoldThreshold = 6;
-const char Generator::kPunctuation = '*';
-const char* Generator::kPrefix = "         |";
-const std::pair<char, char> Generator::kBranchPair = { '_', '-' };
-
 int main(int argc, char** argv) {
     if (argc != 2 && argc != 3) {
         std::cout << "[ERROR] Damn, invalid args...\n"

@@ -28,8 +28,9 @@
      Apr | |
      Mar | |
      Feb | |
-2017 Jan | |
-     ... ≈ ≈
+     ... ~ ~
+2014 Jan | |
+     Dec | |
      Nov | |
      Oct | |
      Sep |_|
