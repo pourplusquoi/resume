@@ -24,12 +24,12 @@ public:
     explicit Generator(TimePoint&& now) noexcept : now_(std::move(now)) {}
 
     void append(const Experience& exp) {
-        if (exp.begin_ <= exp.end_)
+        if (exp.begin <= exp.end)
             data_.emplace_back(exp);
     }
 
     void append(Experience&& exp) {
-        if (exp.begin_ <= exp.end_)
+        if (exp.begin <= exp.end)
             data_.emplace_back(std::move(exp));
     }
 
@@ -40,7 +40,7 @@ public:
                 int rdur = rhs.duration();
                 if (ldur != rdur)
                     return ldur > rdur;
-                return lhs.begin_ < rhs.begin_;
+                return lhs.begin < rhs.begin;
             });
 
         TimePoint epoch = earliest();
@@ -70,7 +70,7 @@ private:
     TimePoint earliest() const {
         int epoch_year = 9999;
         for (const auto& point : data_) {
-            epoch_year = std::min(epoch_year, point.begin_.year_);
+            epoch_year = std::min(epoch_year, point.begin.year);
         }
         return TimePoint(epoch_year, 1);
     }
@@ -80,8 +80,8 @@ private:
         std::vector<int> indent_map(data_.size());
 
         for (int i = 0; i < data_.size(); i++) {
-            int boffset = data_[i].begin_ - epoch;
-            int eoffset = data_[i].end_ - epoch;
+            int boffset = data_[i].begin - epoch;
+            int eoffset = data_[i].end - epoch;
 
             int indent = 0;
             for (int j = boffset; j <= eoffset; j++) {
@@ -168,7 +168,7 @@ private:
                         line += std::string(indent_num, filler) + kPunctuation;
                         desc_map_.insert({
                             line_num,
-                            data_[detail.index_].desc_
+                            data_[detail.index_].desc
                         });
                     } else { // Overflows.
                         line += std::string(indent_num, ' ') + "|";
@@ -226,7 +226,7 @@ private:
             line_vec.emplace_back(line);
             desc_map_.insert({
                 line_num++,
-                data_[overflow[i]->index_].desc_
+                data_[overflow[i]->index_].desc
             });
         }
     }

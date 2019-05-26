@@ -7,15 +7,15 @@
 #include "time-point.h"
 
 struct Experience {
-    TimePoint begin_;
-    TimePoint end_;
-    std::string desc_;
+    TimePoint begin;
+    TimePoint end;
+    std::string desc;
 
     Experience(TimePoint b, TimePoint e, std::string d) noexcept
-        : begin_(std::move(b)), end_(std::move(e)), desc_(std::move(d)) {}
+        : begin(std::move(b)), end(std::move(e)), desc(std::move(d)) {}
 
     constexpr int duration() const noexcept {
-        return end_ - begin_;
+        return end - begin;
     }
 };
 
