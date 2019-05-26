@@ -58,11 +58,11 @@ private:
     enum class Status { head, mid, tail };
     
     struct Detail {
-        Status status_;
-        int index_;
-        int indent_;
+        Status status;
+        int index;
+        int indent;
         Detail(Status s, int idx, int indent)
-            : status_(s), index_(idx), indent_(indent) {}
+            : status(s), index(idx), indent(indent) {}
     };
     
     using DetailCollection = std::vector<Detail>;
@@ -87,7 +87,7 @@ private:
             for (int j = boffset; j <= eoffset; j++) {
                 if (!timeline[j].empty()) {
                     indent = std::max(
-                        indent, indent_map[timeline[j].back().index_]);
+                        indent, indent_map[timeline[j].back().index]);
                 }
             }
             indent += kLenSpacing;
@@ -149,10 +149,10 @@ private:
         bool tail_taken = false;
         
         for (const Detail& detail : collection) {
-            int indent_num = detail.indent_ - next_pos - 1;
-            next_pos = detail.indent_;
+            int indent_num = detail.indent - next_pos - 1;
+            next_pos = detail.indent;
 
-            switch (detail.status_) {
+            switch (detail.status) {
                 case Status::head:
                     line += std::string(indent_num, kBranchPair.first) + "|";
                     break;
@@ -168,7 +168,7 @@ private:
                         line += std::string(indent_num, filler) + kPunctuation;
                         desc_map_.insert({
                             line_num,
-                            data_[detail.index_].desc
+                            data_[detail.index].desc
                         });
                     } else { // Overflows.
                         line += std::string(indent_num, ' ') + "|";
@@ -190,7 +190,7 @@ private:
 
         int next_pos = 0;
         if (!at_head) {
-            int start = overflow.front()->indent_ + prefix.size() - 2;
+            int start = overflow.front()->indent + prefix.size() - 2;
             next_pos = static_cast<int>(
                 tail.rfind('|', start) - prefix.size() + 1);
 
@@ -204,7 +204,7 @@ private:
         for (int i = 0; i < overflow.size(); i++) {
             std::string line = prefix;
 
-            int indent_num = overflow[i]->indent_ - next_pos - 1;
+            int indent_num = overflow[i]->indent - next_pos - 1;
             char filler = at_head ? ' ' : kBranchPair.second;
             line += std::string(indent_num, filler) + kPunctuation;
 
@@ -218,15 +218,15 @@ private:
 
             // Stitches the event line of affected experience.
             for (int j = idx; j < affected.size(); j++) {
-                int margin = affected[j].indent_ -
-                             affected[j - 1].indent_ - 1;
+                int margin = affected[j].indent -
+                             affected[j - 1].indent - 1;
                 line += std::string(margin, ' ') + "|";
             }
 
             line_vec.emplace_back(line);
             desc_map_.insert({
                 line_num++,
-                data_[overflow[i]->index_].desc
+                data_[overflow[i]->index].desc
             });
         }
     }
