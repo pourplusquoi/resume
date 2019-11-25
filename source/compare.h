@@ -22,6 +22,16 @@ constexpr bool operator!=(const Ne<T>& lhs, const Ne<T>& rhs) noexcept {
 }
 
 template <typename T>
+struct Lt {};
+
+template <typename T>
+constexpr bool operator<(const Lt<T>& lhs, const Lt<T>& rhs) noexcept {
+    decltype(auto) dl = static_cast<const T&>(lhs);
+    decltype(auto) dr = static_cast<const T&>(rhs);
+    return dl < dr;
+}
+
+template <typename T>
 struct Gt {};
 
 template <typename T>
@@ -52,6 +62,6 @@ constexpr bool operator>=(const Ge<T>& lhs, const Ge<T>& rhs) noexcept {
 }
 
 template <typename T>
-struct Compare : Eq<T>, Ne<T>, Gt<T>, Le<T>, Ge<T> {};
+struct Compare : Eq<T>, Ne<T>, Lt<T>, Gt<T>, Le<T>, Ge<T> {};
 
 #endif  // COMPARE_H_
